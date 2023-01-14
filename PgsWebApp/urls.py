@@ -23,4 +23,6 @@ urlpatterns = [
     path('', include('pgs.urls')),
     path('jsonData/<int:num_datas>/<int:d>/<int:s>', PostJsonListView.as_view(), name='json_view'),
     path('papersData/<int:num_datas>/<str:name>', PostJsonPaper.as_view(), name='papersData'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
