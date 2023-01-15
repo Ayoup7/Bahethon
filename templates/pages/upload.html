@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block  content %}
+{%if user_id is not None%}
+{% include 'parts/userNav.html'%}
+{%else%}
+{% include 'parts/nav.html'%}
+{%endif%}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">أضافة اوراق بحثية</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="drag-drop-area"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="post">
+          <div class="modal-body">
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Default checkbox
+                </label>
+              </div>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+    <script type="module">
+      import {Uppy, Dashboard, Tus} from "https://releases.transloadit.com/uppy/v3.3.1/uppy.min.mjs"
+      var uppy = new Uppy()
+        .use(Dashboard, {
+          inline: true,
+          target: '#drag-drop-area',
+          proudlyDisplayPoweredByUppy: false,
+          myDevice:"false",
+          width: 1200,
+          height: 720,
+          metaFields: [
+                     { id: 'name', name: 'Name', placeholder: 'file صسصثname' },
+        ],
+        locale: {
+            strings: {
+                myDevice: 'جهازي',
+                dropPasteFiles: '%{browseFiles} ضع الملفات هنا أو ',
+                addMore: 'إضافة المزيد',
+                editFileWithFilename: '%{file} تعديل الملف',
+                cancel: 'الخروج',
+                saveChanges: 'حفظ التغييرات',
+                browseFiles: 'استكشاف الملفات',
+                editFile: 'تعديل الملف',
+                removeFile: 'حذف الملف',
+                uploadComplete: 'اكتمل التحميل',
+                uploadPaused: 'متوقف ',
+                pauseUpload: 'ايقاف ',
+                retryUpload: 'اعادة التحميل',
+                cancelUpload: 'الغاء التحميل',
+                xFilesSelected: {
+                0: 'تم اختيار  %{smart_count} ملف',
+                1: 'تم اختيار  %{smart_count} ملفات',
+                },
+                 
+                processingXFiles: {
+                0: 'ملف %{smart_count} معالجة',
+                1: 'ملفات %{smart_count} معالجة',
+                },
+                  
+                uploadingXFiles: {
+                    0: ' %{smart_count} ',
+                    1: ' %{smart_count} ',
+                  },
+                  
+                },
+                
+        },
+        
+        })
+        .use(Tus, {endpoint: 'https://tusd.tusdemo.net/files/'})
+
+      uppy.on('complete', (result) => {
+        console.log('Upload complete! We’ve uploaded these files:', result.successful)
+      })
+    </script>
+
+
+
+    {% include 'parts/footer.html'%}
+    {% endblock %}

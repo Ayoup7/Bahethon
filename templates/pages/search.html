@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load change_tag %}
+{% block content %}
+{%if user_id is not None%}
+{% include 'parts/userNav.html'%}
+{%else%}
+{% include 'parts/nav.html'%}
+{%endif%}
+
+<div class="content-search">
+    <div class="search-box position-relative">
+        <div class="container">
+                    <div dir="rtl" class="search-tite">
+                        <div dir="rtl" class="fit">
+                            <h1> أدخل التخصص الي تريده وقم بالبحث عن مشرف أو
+                            ممتحن</h1>
+                        </div>
+                    </div>
+                <form  class="needs-validation" novalidate action="/search" method="GET", type="search" id="systemForm" name="form" onsubmit="event.preventDefault();">
+                    <div class="row search-field position-relative justify-content-sm-center
+                        justify-content-center" >
+                    
+                        <div dir="rtl" class="search-left col-md col-sm-6 ms-2" >
+                            <select class="form-select mt-4 custom-form" id="validationCustom04" required name='q'>
+                                <option selected disabled value="">اختر التخصص الدقيق</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <p>قم بإختيار التخصص الدقيق</p>
+                              </div>
+                        </div>
+                        <div dir="rtl" class="search-right col-md col-sm-6 me-2" id="department">
+                            <select class="form-select mt-4 custom-form" id="validationCustom05" required name='f'>
+                                <option selected disabled value="">اختر التخصص الجامعي</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <p>قم بإختيار التخصص الجامعي</p>
+                              </div>
+                            <button id="search"  type="submit" class="btn btn-primary mt-3 rounded-pill" form="systemForm">البحث الان</button>
+                        </div>
+                        
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+    <!--card-->
+<div class="card-content ">
+    <div class="container">
+        <div id='main_card_box' class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 d-flex flex-row-reverse">
+
+            <!--Start Creat pleacholder Card-->
+            <div id='pleacholder' class="position-relative col d-flex justify-content-center d-none">
+                <div class="col-4 card card-width" aria-hidden="true">
+                    <img src="" class="card-pic skeleton" alt="" />
+                        <div dir='rtl' class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class=" col-6 placeholder"></span>
+                            </h5>
+                        <p class="card-text placeholder-glow">
+                                <span class="card-p col-7 placeholder">التخصص الجامعي</span>
+                                <span class="card-p col-4 placeholder">/ التخصص الدقيق</span>
+                                <span class="card-p col-12 d-block position-relative disabled me-1 placeholder">
+                                    غير متوفر للعمل كمشرف
+                                    
+                                </span>
+                                <span class="card-p col-12 d-block position-relative disabled me-1 placeholder">
+                                    غير متوفر للعمل كممتحن
+                                    
+                                </span>
+                        </p>
+                        <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6 position-relative"> 
+                        </a>
+                    </div>
+                </div>
+            </div>
+          <!--End Creat pleacholder Card-->
+            
+        </div>
+    </div>
+</div>
+    <!--card-->
+     <!--load more div-->
+    <div id="load-more" class= "load-more d-flex justify-content-center mt-5 mb-5 d-none">
+        <button id="load-btn" type="button" class="btn btn-outline-primary">تحميل المزيد</button>
+    </div>
+     <!--load more div-->
+
+      <!--no more data  div-->
+    <div id="no-more" class= "no-more d-flex justify-content-center mt-5 mb-5 d-none">
+        <h3 id="notify">لايوجد المزيد من الأعضاء في هذا القسم</h3>
+    </div>
+     <!--no more data div-->
+
+    <script src="{%static 'js/jquery-3.6.1.min.js'%}" ></script>
+    <script src="{%static 'js/data.js'%}" ></script>
+    <script type="text/javascript">
+
+
+        
+        
+
+        const mainCardBox = document.getElementById('main_card_box')
+        const loadBtn = document.getElementById('load-btn')
+        const loadMoreDiv = document.getElementById('load-more')
+        const noMoreDiv = document.getElementById('no-more')
+        const notify = document.getElementById('notify')
+        let visble = 10
+        let supervisor =''
+        let examiner = ''
+        let imgUrl = ''
+        let sState = ''
+        let eState = ''    
+        const hendelGetData = () => {
+            const mainCardBox = document.getElementById('main_card_box')
+            let spicaltys  = document.getElementById('validationCustom04')
+            let departments = document.getElementById('validationCustom05')  
+            const loader = document.getElementById('pleacholder')
+            spicaltys = spicaltys.value
+            departments = departments.value
+            
+            if (! spicaltys > 0){
+                spicaltys=0
+            }
+          $.ajax({
+            type: 'GET',
+            url: `jsonData/${visble}/${departments}/${spicaltys}`,
+            success: function(response){
+              max_size = response.max
+              const data = response.data 
+                loader.classList.remove('d-none')
+              setTimeout(()=>{
+                loader.classList.add('d-none')
+                  data.map(value =>{
+                    if(!value.supervisor){
+                        supervisor = 'غير متوفر للعمل كمشرف'
+                        sState = `<span class="position-absolute top-50 start-100 translate-middle badge border border-light rounded-circle bg-danger ms-3 p-2"><span class="visually-hidden">unread messages</span></span>`
+                    }else {
+                        supervisor = 'متوفر للعمل كمشرف'
+                        sState = `<span class="position-absolute top-50 start-100 translate-middle badge border border-light rounded-circle bg-success ms-3 p-2"><span class="visually-hidden">unread messages</span></span>`
+                    }
+                    if(!value.examiner){
+                        examiner = 'غير متوفر للعمل كممتحن'
+                        eState = `<span class="position-absolute top-50 start-100 translate-middle badge border border-light rounded-circle bg-danger ms-3 p-2"><span class="visually-hidden">unread messages</span></span>`
+                    }else {
+                        examiner = 'متوفر للعمل كممتحن'
+                        eState = `<span class="position-absolute top-50 start-100 translate-middle badge border border-light rounded-circle bg-success ms-3 p-2"><span class="visually-hidden">unread messages</span></span>`
+                    }
+                    if(!value.user_image){imgUrl = "{% static 'images/avatar.png'%}"}else {imgUrl = value.user_image}
+                    const url = "{%url 'info' 0%}".replace('0', value.id);
+                  loader.insertAdjacentHTML('beforebegin', `<!--Start Creat Card-->
+                  <div class="col d-flex justify-content-center ">
+                      <div class="col-12 col-md-6 card card-width" aria-hidden="true">
+                        <img class="card-pic" src="${imgUrl}" alt="">
+                              <div dir='rtl' class="card-body">
+                                  <h5 class="card-title placeholder-glow">
+                                      <span class=" col-6">${value.first_name} ${value.last_name}</span>
+                                  </h5>
+                              <p class="card-text placeholder-glow">
+                                <span class="card-p col-7 d-block">الدرجة العلمية : ${value.degree} </span>
+                                      <span class="card-p col-7 "> التخصص : ${value .department} </span>
+                                      <span class="card-p col-4 ">/ ${value .specialty} </span>
+                                      <span class="card-p col-12 d-block position-relative disabled me-4">
+                                        ${supervisor}
+                                        ${sState}
+                                      </span>
+                                      <span class="card-p col-12 d-block position-relative disabled me-4">
+                                        ${examiner}
+                                        ${eState}
+                                      </span>
+                              </p>
+                              <form  class="needs-validation" novalidate action="/info" method="GET" id="systemForm" name="form">
+                                <a href="${url}" type="submit" class="btn btn-primary col-6 rounded-pill position-relative"  form="systemForm"> التفاصيل</a> 
+                              </form>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                <!--End Creat Card-->`)
+                console.log("creat" , value .id )
+                  })
+                  if(data.length >= 10){
+                    loadMoreDiv.classList.remove('d-none')
+                  }
+              }, 1000)
+      
+              if(max_size){
+                if(data.length == 0){
+                    loadMoreDiv.classList.add('d-none')
+                    noMoreDiv.classList.remove('d-none')
+                  }   
+              }
+      
+            },
+            error: function(error){
+                console.log(error)
+            }
+          })
+        }
+
+        loadBtn.addEventListener('click', ()=>{
+            visble = visble + 10
+            hendelGetData()
+        })
+        function scrollToContent(){
+            window.scrollTo({
+                left:0,
+                top : 1600,
+                behavior: "smooth"
+            })
+        }
+
+        document.getElementById('search').addEventListener('click', function(){
+            console.log("click")
+            visble = 10
+            noMoreDiv.classList.add('d-none')
+            mainCardBox.innerHTML = ""
+            mainCardBox.innerHTML +=` <!--Start Creat pleacholder Card-->
+            <div id='pleacholder' class="position-relative col d-flex justify-content-center d-none">
+                <div class="col-4 card card-width" aria-hidden="true">
+                    <img src="" class="card-pic skeleton" alt="" />
+                        <div dir='rtl' class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class=" col-6 placeholder"></span>
+                            </h5>
+                        <p class="card-text placeholder-glow">
+                                <span class="card-p col-7 placeholder">التخصص الجامعي</span>
+                                <span class="card-p col-4 placeholder">/ التخصص الدقيق</span>
+                                <span class="card-p col-12 d-block position-relative disabled me-1 placeholder">
+                                    غير متوفر للعمل كمشرف
+                                    
+                                </span>
+                                <span class="card-p col-12 d-block position-relative disabled me-1 placeholder">
+                                    غير متوفر للعمل كممتحن
+                                    
+                                </span>
+                        </p>
+                        <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6 position-relative"> 
+                        </a>
+                    </div>
+                </div>
+            </div>
+          <!--End Creat pleacholder Card-->`;
+            const department = document.getElementById('validationCustom04')
+            const spicalty = document.getElementById('validationCustom05')
+            if(department.value > 0 && spicalty.value > 0){
+                scrollToContent() 
+                hendelGetData()  
+                        
+            }
+            else if (spicalty.value > 0 ){
+                scrollToContent() 
+                hendelGetData()
+            }
+        });
+        
+    </script>
+{% include 'parts/footer.html'%}
+{% endblock %}

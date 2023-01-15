@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block  content %}
+{%if user_id is not None%}
+{% include 'parts/userNav.html'%}
+{%else%}
+{% include 'parts/nav.html'%}
+{%endif%}
+
+<div class="content">
+    <div class="container">
+        <div dir="rtl" class="row content">
+           
+            <div class="workin-pictur col-8 mt-5">
+                <img src="{% static 'images/working-logo.svg'%}"  alt="">
+            </div>
+                <div class="working-text col-4">
+                    <h1>عذراً!!</h1>
+                    <h1>لاتزال هذه الصفحة قيد الإنشاء</h1>
+                    <p>يمكنك تصفح الموقع والرجوع في وقت لاحق (:</p>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+
+{% include 'parts/footer.html'%}
+{% endblock %}

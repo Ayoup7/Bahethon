@@ -1,0 +1,41 @@
+{% extends 'login_base.html' %}
+{% load static %}
+{% block  content %}
+
+<div class="my-login-page">
+	<section class="h-100">
+		<section class="h-100">
+			<div class="container h-100">
+				<div class="row justify-content-md-center h-100">
+					<div class="card-wrapper">
+						<div class="brand">
+							<img src="{% static 'images/l-3.png'%}"  class="nav-pic" alt="">
+						</div>
+						<div dir="rtl" class="card fat forms">
+							<div class="card-body text-center">
+								<h4 class="card-title">استعادة كلمة المرور</h4>
+								<p class="invalid-p-eroro"> هذا الرابط منتهي الصلاحية <i class="fa-solid fa-circle-exclamation"></i> <p class="invalid-p-eroro" id="witing"></p></i></p>
+							</div>
+						</div>
+						<div class="footer">
+							Copyright &copy; 2023 &mdash; 
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+</div>
+
+<script>
+    var seconds = 5;
+    function showSecondes() {
+
+        seconds -= 1
+        if (seconds <= 0) {
+            window.location='/login'
+        }
+        document.getElementById('witing').innerText =  "سوف يتم اعادة توجيهك بعد " + seconds +  " ثواني " 
+    }
+    setInterval(showSecondes,1000)
+</script>
+{% endblock %}
