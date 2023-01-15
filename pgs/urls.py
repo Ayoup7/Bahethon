@@ -25,6 +25,7 @@ urlpatterns = [
     path('eligibles-data', views.eligible_data, name='eligibles-data'),
     path('file-upload', views.file_uploader, name='file-upload'),
     path('delete_image', views.delete_image, name='delete_image'),
+     path('delete_paper', views.delete_paper, name='delete_paper'),
     path('search-papers', views.search_papers, name='search-papers'),
     path('user-papers/id=<int:id>', views.user_file, name='user-papers'),
 ]

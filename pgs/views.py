@@ -10,7 +10,6 @@ from .helpers import send_forget_password_mail
 import os
 import uuid
 from datetime import datetime, timedelta
-import time
 # Create your views here.
 
 def index(request):
@@ -369,7 +368,7 @@ def user_file(request, id):
 def file_uploader(request):
     if request.method == 'POST':
         paper_name = request.POST.get('caption')
-        paper = request.POST.get('name')
+        paper = request.FILES['file']
         user_ID_id = request.user.id
         pdf = UserFile.objects.create(paper_name=paper_name, paper=paper, user_ID_id=user_ID_id)
         pdf.save()
@@ -382,6 +381,16 @@ def delete_image(request):
         request.session['image'] = ''
         os.remove(add.image.path)
         Users.objects.filter(user_id=request.user.id).update(image=None)
+    return redirect('profile')
+
+
+def delete_paper(request):
+    if request.method == 'POST':
+        paper= request.POST.getlist('p')
+        for p in paper:
+            paper_delete = UserFile.objects.filter(id=p).first()
+            os.remove(paper_delete.paper.path)
+        print("DONE")
     return redirect('profile')
 
 

@@ -106,21 +106,21 @@
 
       <div class="left-profile col-12 col-md-12 col-lg-8">
           <div class="row g-3">
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <label for="username" class="form-label invalid-p ">اسم المستخدم :</label>
             <input type="text" class="form-control input-info" id="username"  name='username' required>
             <div class="invalid-feedback">
               <p>يرجى ملئ هذا الحقل</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <label for="first_name" class="form-label invalid-p "> الاسم الاول :</label>
             <input type="text" class="form-control input-info" id="first_name"  name='first_name' required>
             <div class="invalid-feedback">
               <p>يرجى ملئ هذا الحقل</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <label for="last_name" class="form-label invalid-p "> اللقب :</label>
             <input type="text" class="form-control input-info" id="last_name"  name='last_name' required>
             <div class="invalid-feedback">
@@ -128,56 +128,56 @@
             </div>
           </div>
 
-          <div class="col-md-4" id="eligible">
+          <div class="col-12 col-md-4" id="eligible">
             <label for="eligible" class="form-label invalid-p ">اختر المؤهل الجامعي :</label>
             <select id="validationCustom09" class="form-select selection" name="eligible" required>
               <option selected disabled value="">اختر المؤهل الجامعي</option>
             </select>
           </div>
 
-          <div class="col-md-4" id="department">
+          <div class="col-12 col-md-4" id="department">
             <label for="department" class="form-label invalid-p ">اختر التخصص الجامعي :</label>
             <select id="validationCustom05" class="form-select selection" name="department" required>
               <option selected disabled value="">اختر التخصص الجامعي</option>
             </select>
           </div>
         
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <label for="specialty" class="form-label invalid-p ">اختر التخصص الدقيق :</label>
             <select id="validationCustom04" class="form-select selection" name="specialty" required>
               <option selected disabled value="">اختر التخصص الدقيق</option>
             </select>
           </div>
 
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <label for="degree" class="form-label invalid-p ">اختر  الدرجة العلمية :</label>
             <select id="validationCustom08" class="form-select selection" name="degree" required>
               <option selected disabled value="">اختر  الدرجة العلمية</option>
             </select>
           </div>
         
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <label for="university" class="form-label invalid-p "> اختر الجامعة :</label>
             <select id="validationCustom06" class="form-select selection" name="university" required>
               <option selected disabled value="">اختر الجامعة </option>
             </select>
           </div>
         
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <label for="college" class="form-label invalid-p "> اختر الكلية :</label>
             <select id="validationCustom07" class="form-select selection" name="college" required>
               <option selected disabled value="">اختر الكلية </option>
             </select>
           </div>
           
-          <div  class="col-md-4">
+          <div  class="col-12 col-md-4">
             <label for="date" class="form-label invalid-p d-block">وقت التفرغ(اختياري) :</label>
             <input class="form-control input-info input-info" type="date" id="date" name="date"
                value="01-01-2023"
                min="2018-01-01">
           </div>
           
-          <div class="col-2">
+          <div class="col-6 col-md-2">
             <div class="form-check">
               <label class="form-check-label invalid-p " for="gridCheck">
                 متفرغ للعمل كمشرف
@@ -185,7 +185,7 @@
               <input class="form-check-input float-none" type="checkbox" id="check-s" name="supervisor">
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-6 col-md-2">
             <div class="form-check">
               <label class="form-check-label invalid-p " for="gridCheck">
                 متفرغ للعمل كممتحن
@@ -194,7 +194,7 @@
             </div>
           </div>
           
-            <div class="col-4">
+            <div class="col-12 col-md-4">
               <div class="form-check">
                 <label for="exampleFormControlTextarea1" class="form-label invalid-p">كتابة نبدة تعرفية(اختياري) :</label>
             <textarea id="brief" class="form-control" id="exampleFormControlTextarea1" rows="3" name="brief"></textarea>
@@ -202,7 +202,7 @@
             </div>
 
             {%if papers%}
-            <div class="col-3">
+            <div class="col-6 col-md-3">
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                 الاوراق البحثية
@@ -210,14 +210,14 @@
             </div>
             {%endif%}
 
-            <div class="col-3">
+            <div class="col-6 col-md-3">
               <!-- Button trigger modal -->
               <a class="btn btn-light" href="{%url 'change-password'%}" role="button">تغيير كلمة السر</a>
             </div>
 
           </div>  
       </div>
-      <div  class="col-md-12">
+      <div  class="col-12 col-md-12">
         <button type="submit" class="btn btn-light me-5"/>تعديل</button>
     </div>
     </form>
@@ -232,17 +232,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <h5 class="modal-title" id="exampleModalLabel">حذف الاوراق البحثية</h5>
           </div>
-          <form action="" method="post">
+          <form action="delete_paper" method="POST">
             {% csrf_token %}
             <div class="modal-body">
 
               {%for paper in papers%}
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{paper.id}}" id="flexCheckDefault" required>
+      
+                <input class="form-check-input" type="checkbox" value="{{paper.id}}" id="flexCheckDefault" name="p">
                 <label class="form-check-label" for="flexCheckDefault">
                   {{paper.paper_name}}
                 </label>
               </div>
+
               {%endfor%}
               
                 

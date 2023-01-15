@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save
 import datetime
 import os
+
 # Create your models here.
 #signal used for is_active=False to is_active=True
 @receiver(pre_save, sender=User, dispatch_uid='active')
@@ -98,13 +99,13 @@ def papers_path(request, filename):
     old_filename = filename
     time_now = datetime.datetime.now().strftime("%y/%m/%d/")
     filename  = "%s%s" % (time_now, old_filename)
-    print(filename)
+    print("DOn")
     return os.path.join('papers/', filename)
 
 
 class UserFile(models.Model):
     paper_name = models.CharField(max_length=50, null=False)
-    paper = models.FileField(upload_to='papers/%y/%m/%d/', blank=True)
+    paper = models.FileField(upload_to=papers_path, null=False, blank=True)
     user_ID = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
