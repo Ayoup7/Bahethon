@@ -313,10 +313,12 @@ border-left: 1px solid var(--green);
 
 .search-left {
     width: 50%;
+    margin-right: 100px;
 }
 
 .search-right {
     width: 50%;
+    margin-right: 185px;
 }
 
 .search-tite {
@@ -325,7 +327,10 @@ border-left: 1px solid var(--green);
         margin-top: 60px;
 }
 .fit {
-    width: 570px;
+
+    width: 603px;
+    margin-right: 251px;
+
 }
 
 .fit h1{
@@ -832,6 +837,15 @@ border-left: 1px solid var(--green);
         width: 397px;
         margin-right: -29px;
     }
+
+    .search-right {
+        width: 50%;
+        margin-right: 351px;
+    }
+    .search-left {
+        width: 50%;
+        margin-right: 364px;
+    }
 }
 
 @media screen and (max-width: 991px) {
@@ -939,6 +953,15 @@ border-left: 1px solid var(--green);
 
     .search-button{
         margin-right: 128px;
+    }
+
+    .search-right {
+        width: 50%;
+        margin-right: 9px;
+    }
+    .search-left {
+        width: 50%;
+        margin-right: 0px;
     }
 
 }
