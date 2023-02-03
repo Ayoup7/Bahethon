@@ -24,13 +24,13 @@ def index(request):
     user['num_of_student_goal'] = numbers.num_of_student
     user['num_of_paper'] = 0
     if numbers.num_of_paper > 0:
-        user['num_of_paper'] = numbers.num_of_paper - 200
+        user['num_of_paper'] = numbers.num_of_paper - 500
     user['nom_of_graduates'] = 0
     if numbers.nom_of_graduates > 0:
-        user['nom_of_graduates'] = numbers.nom_of_graduates - 200
+        user['nom_of_graduates'] = numbers.nom_of_graduates - 500
     user['num_of_student'] = 0
     if numbers.num_of_student > 0:
-        user['num_of_student'] = numbers.num_of_student - 200
+        user['num_of_student'] = numbers.num_of_student - 500
     user['news'] = News.objects.all()
 
     return render(request, 'pages/home.html', user) 
